@@ -26,15 +26,12 @@ func downloadPage(wg *sync.WaitGroup) {
 }
 
 func main() {
-
 	var wg sync.WaitGroup
 	t := time.Now()
 
 	concurrency := flag.Bool("concurrency", false, "Example with concurrency or not")
 	pages := flag.Int("pages", 5, "How many pages should be downloaded")
 	flag.Parse()
-
-	log.Println(*concurrency)
 
 	if *concurrency {
 		wg.Add(*pages)
