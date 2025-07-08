@@ -11,25 +11,25 @@ import (
 
 func downloadPage(wg *sync.WaitGroup) {
 	if wg != nil {
-		log.Println("[WITH GOROUTINES]")
+		log.Println("[INFO] With Goroutines")
 		defer wg.Done()
 	} else {
-		log.Println("[WITHOUT GOROUTINES]")
+		log.Println("[INFO] Without Goroutines")
 	}
-	_, err := http.Get("https://www.youtube.com")
+	_, err := http.Get("https://www.rabbitmq.com/")
 	if err != nil {
 		log.Printf("[ERROR] error trying to read web page: %v", err)
 		os.Exit(1)
 	}
 
-	log.Println("Received web page response")
+	log.Println("[INFO] Received web page response")
 }
 
 func main() {
 	var wg sync.WaitGroup
 	t := time.Now()
 
-	concurrency := flag.Bool("concurrency", false, "Example with concurrency or not")
+	concurrency := flag.Bool("concurrency", true, "Example with concurrency or not")
 	pages := flag.Int("pages", 5, "How many pages should be downloaded")
 	flag.Parse()
 
@@ -48,5 +48,5 @@ func main() {
 	if *concurrency {
 		wg.Wait()
 	}
-	log.Printf("Elapsed time: %f", time.Since(t).Seconds())
+	log.Printf("[INFO] Elapsed time running: %f", time.Since(t).Seconds())
 }
