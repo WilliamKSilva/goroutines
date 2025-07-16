@@ -46,3 +46,12 @@ request to an external API to search for the details of our users addresses, thi
 
 - The results *with* Goroutines: reading 200 users from a CSV file and searching for their address took *~8.7* seconds.
 - The results *without* Goroutines: reading 200 users from a CSV file and searching for their address took *~124.0* seconds.
+
+### Worker Pool
+- This example demonstrates a simple service check, where we send a GET request to a website and determine whether the response status code indicates success.
+
+- The main idea here is to implement a thread pool pattern, where we define a fixed number of workers (goroutines) to process tasks concurrently. Each worker is responsible for executing a specific "job" from the queue.
+
+- Since we’re using Go, we also leverage the concept introduced in the previous example: channels. Each worker listens for incoming jobs on the jobs channel, executes the assigned task, and then sends the result to the results channel.
+
+- In this case, a worker executes a job — checking the availability of a specific website. Once the check is complete, the worker sends a custom result to the results channel indicating whether the check was successful.
